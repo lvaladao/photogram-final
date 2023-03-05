@@ -13,9 +13,7 @@
 #
 class Photo < ApplicationRecord
   validates :caption, :presence => true
-  validates :comments_count, :presence => true
   validates :image, :presence => true
-  validates :likes_count, :presence => true
   validates :owner_id, :presence => true
   
   belongs_to(:owner, {

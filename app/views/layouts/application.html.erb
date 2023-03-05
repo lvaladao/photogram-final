@@ -42,9 +42,7 @@
 
         <li>
           <% if @current_user %>
-            <a href="/user_sign_out">
-              Sign out
-            </a>
+            <a href="/user_sign_out">Sign out</a>
           <% else %>
             <a href="/user_sign_up">
               Sign up
@@ -52,6 +50,19 @@
           <% end %>
         </li>
     </ul>
+
+    <% if notice.present? %>
+      <div>
+        <%= notice %>
+      </div>
+    <% end %>
+
+    <% if alert.present? %>
+      <div>
+        <%= alert %>
+      </div>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>

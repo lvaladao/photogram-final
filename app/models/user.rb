@@ -16,8 +16,6 @@ class User < ApplicationRecord
   validates :email, :uniqueness => { :case_sensitive => false }
   validates :email, :presence => true
   has_secure_password
-  validates :comments_count, :presence => true
-  validates :likes_count, :presence => true
   validates :private, inclusion: [true, false]
   validates :username, :uniqueness => { :case_sensitive => false }
   validates :username, :presence => true
