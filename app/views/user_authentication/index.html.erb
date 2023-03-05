@@ -29,7 +29,7 @@
       </td>
 
       <td>
-        <% if @current_user && @current_user.follow_requests_sent.any?{|fr| fr.recipient_id == a_user.id} %>
+        <% if @current_user && @current_user.follow_requests_sent.any?{ |fr| fr.recipient_id == a_user.id } %>
           <% if @current_user.follow_requests_sent.select { |fr| fr.recipient_id == a_user.id }.at(0).status == "pending" %>
             Request sent.
             <a href="/delete_follow_request/<%= @current_user.follow_requests_sent.select { |fr| fr.recipient_id == a_user.id }.at(0).id %>">
