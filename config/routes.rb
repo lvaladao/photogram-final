@@ -5,6 +5,10 @@ Rails.application.routes.draw do
   get("/user_sign_up", { :controller => "user_authentication", :action => "sign_up_form" })        
   # CREATE RECORD
   post("/insert_user", { :controller => "user_authentication", :action => "create"  })
+
+  # READ
+  get("/", { :controller => "user_authentication", :action => "index" })
+  get("/users", { :controller => "user_authentication", :action => "index" })
       
   # EDIT PROFILE FORM        
   get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })       
