@@ -1,0 +1,89 @@
+<h1><%= @the_user.username %></h1>
+
+<dl>
+  <dt>Private</dt>
+  <dd><%= @the_user.private %></dd>
+
+  <dt>Followers</dt>
+  <dd><%= @the_user.follow_requests_received.where({ :status => "accepted" }).length() %></dd>
+  
+  <dt>Following</dt>
+  <dd><%= @the_user.follow_requests_sent.where({ :status => "accepted" }).length() %></dd>
+</dl>
+
+<nav>
+  <ul>
+    <li>
+      <a href="/users/<%= @the_user.username %>">Profile</a>
+    </li>
+    <li>
+      <a href="/users/<%= @the_user.username %>/liked_photos">Liked photos</a>
+    </li>
+    <li>
+      <a href="/users/<%= @the_user.username %>/feed">Feed</a>
+    </li>
+    <li>
+      <a href="/users/<%= @the_user.username %>/discover">Discover</a>
+    </li>
+  </ul>
+</nav>
+
+<h2>Discover (<%= @the_user.discover_size %>)</h2>
+
+<table border="1">
+  <tr>
+    <th>
+      Image
+    </th>
+
+    <th>
+      Owner
+    </th>
+
+    <th>
+      Caption
+    </th>
+
+    <th>
+      Posted
+    </th>
+
+    <th>
+      Likes
+    </th>
+
+    <th></th>
+  </tr>
+
+  <% @the_user.follow_requests_sent.select { |fr| fr.status == "accepted" }.each do |request| %>
+    <% request.recipient.likes.each do |like| %>
+      <tr>
+        <td>
+          <img src="<%= like.photo.image %>">
+        </td>
+
+        <td>
+          <%= like.photo.owner.username %>
+        </td>
+
+        <td>
+          <%= like.photo.caption %>
+        </td>
+
+        <td>
+          <%= like.photo.created_at %>
+        </td>
+
+        <td>
+          <%= like.photo.likes_count %>
+        </td>
+
+        <td>
+          <a href="/photos/<%= like.photo.id %>">
+            Show details
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>    
+</table>

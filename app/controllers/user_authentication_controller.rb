@@ -9,6 +9,38 @@ class UserAuthenticationController < ApplicationController
 
     render({ :template => "user_authentication/index.html.erb" })
   end
+
+  def fetch_user
+    the_username = params.fetch("path_username")
+
+    matching_users = User.where({ :username => the_username })
+
+    @the_user = matching_users.at(0)
+  end
+
+  def show
+    fetch_user()
+
+    render({ :template => "user_authentication/show.html.erb" })
+  end
+
+  def feed
+    fetch_user()
+
+    render({ :template => "user_authentication/feed.html.erb" })
+  end
+
+  def liked
+    fetch_user()
+
+    render({ :template => "user_authentication/liked.html.erb" })
+  end
+
+  def discover
+    fetch_user()
+
+    render({ :template => "user_authentication/discover.html.erb" })
+  end
   
   def sign_in_form
     render({ :template => "user_authentication/sign_in.html.erb" })

@@ -31,20 +31,42 @@ class User < ApplicationRecord
   has_many(:likes, {
     :foreign_key => "fan_id"
   })
-  has_many(:followrequestsreceived, {
-    :class_name => "Followrequest",
+  has_many(:follow_requests_received, {
+    :class_name => "FollowRequest",
     :foreign_key => "recipient_id",
     :dependent => :destroy
   })
-  has_many(:followrequestssent, {
-    :class_name => "Followrequest",
+  has_many(:follow_requests_sent, {
+    :class_name => "FollowRequest",
     :foreign_key => "sender_id",
     :dependent => :destroy
   })
   has_many(:recipients, {
-    :through => :followrequestssent
+    :through => :follow_requests_sent
   })
   has_many(:senders, {
-    :through => :followrequestsreceived
+    :through => :follow_requests_received
   })
+
+  def feed_size
+    size = 0
+    requests = self.follow_requests_sent.select { |fr| fr.status == "accepted" }
+    
+    requests.each do |request|
+      size = size + request.recipient.photos.length()
+    end
+    
+    return size
+  end
+
+  def discover_size
+    size = 0
+    requests = self.follow_requests_sent.select { |fr| fr.status == "accepted" }
+    
+    requests.each do |request|
+      size = size + request.recipient.likes.length()
+    end
+    
+    return size
+  end
 end

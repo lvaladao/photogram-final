@@ -9,6 +9,12 @@ Rails.application.routes.draw do
   # READ
   get("/", { :controller => "user_authentication", :action => "index" })
   get("/users", { :controller => "user_authentication", :action => "index" })
+
+  get("/users/:path_username", { :controller => "user_authentication", :action => "show" })
+
+  get("/users/:path_username/feed", { :controller => "user_authentication", :action => "feed" })
+  get("/users/:path_username/liked_photos", { :controller => "user_authentication", :action => "liked" })
+  get("/users/:path_username/discover", { :controller => "user_authentication", :action => "discover" })
       
   # EDIT PROFILE FORM        
   get("/edit_user_profile", { :controller => "user_authentication", :action => "edit_profile_form" })       
